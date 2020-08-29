@@ -1,0 +1,260 @@
+$primary-color: #fff;
+$link-hover-color: #2445ae;
+
+// keep parent element of floated elements from collapsing
+@mixin clearfix {
+  &:after {
+    content:"";
+    display:table;
+    clear:both;
+  }
+}
+
+body {
+  color: black;
+}
+
+@media screen {
+  body {
+    background-color: #c7edcc;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.common-title {
+  header {
+    h1 {text-align: center;}
+  }
+}
+
+// top navigation bar
+.top-nav[role=navigation] {
+  @extend .common-title;
+
+  .nav-links {
+    float: right;
+  }
+
+  @include clearfix;
+
+  ul {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  ul li {
+    display: inline;
+    margin-right: .25em;
+  }
+}
+
+.common-border {
+  border-radius: 4px;
+  border: medium solid $primary-color;
+  margin-top: 4px;
+  padding: 5px;
+}
+
+.common-datetime {
+  //color: #d6d5d5;
+  //color: #dbdad0;
+  color: #888888;
+  font-size: 1.25em;
+  line-height: 1.5em;
+}
+
+.content {
+  @extend .common-border;
+  @extend .common-title;
+
+  aside {
+    .edit-on-github {
+      float: right;
+      a {
+        padding: 5px 5px;
+        background: $primary-color;
+        border-radius: 4px;
+      }
+    }
+    .old-url {
+      float: right;
+      margin-right: 3px;
+      a {
+        padding: 5px 5px;
+        background: $primary-color;
+        border-radius: 4px;
+      }
+    }
+    .zh-convert {
+      float: right;
+      margin-right: 3px;
+
+      span {
+        &:hover {cursor: pointer;}
+        padding: 5px 5px;
+        background: $primary-color;
+        border-radius: 4px;
+      }
+    }
+    .font-adjust {
+      float: right;
+      margin-right: 3px;
+
+      span {
+        &:hover {cursor: pointer;}
+        padding: 5px 5px;
+        background: $primary-color;
+        border-radius: 4px;
+      }
+    }
+
+    .available-translations {
+      float: left;
+    }
+
+    @include clearfix;
+  }
+
+  .main-content {
+    // include css rules for rst content rendering
+    @import "css4rst";
+  }
+}
+
+.page { @extend .content; }
+.article { @extend .content;
+  aside { time {@extend .common-datetime;} }
+}
+
+.post {
+  @extend .common-border;
+  @extend .common-title;
+
+  aside.post-metadata-date {
+    @extend .common-datetime;
+  }
+
+  div.post-content {
+    line-height: 1.5em;
+    font-size: 1.25em;
+    p { display: inline; }
+
+    a.read-more {
+      color: #428bca;
+      &:hover { color: $link-hover-color; }
+    }
+  }
+}
+
+.archives {
+  @extend .common-border;
+  @extend .common-title;
+
+  // @see http://stackoverflow.com/questions/9538247/css-background-disappears-when-using-floatleft
+  overflow: hidden;
+  dl {
+    line-height: 2em;
+
+    dt {
+      float: left;
+      clear: left;
+    }
+    dd {
+      float: left;
+      margin-left: 1em;
+    }
+  }
+}
+
+.common-groups {
+  @extend .common-border;
+
+  ul > li {
+    line-height: 2em;
+    .badge {
+      line-height: 1.5em;
+      color: rgb(0, 0, 238);
+      padding: 0 .75em 0 .75em;
+      background-color: #fff;
+      border-radius: 6px;
+    }
+  }
+}
+
+.tags, .authors, .categories {
+  @extend .common-groups;
+}
+
+.common-group {
+  padding: 5px;
+  ol.breadcrumb {
+    @extend .common-border;
+    li {
+      &:after { content: " / "; }
+      &.active:after { content: ""; }
+      display: inline;
+    }
+  }
+}
+
+.tag, .author, .category {
+  @extend .common-group;
+}
+
+.layout-footer {
+  @extend .common-border;
+
+  .fake-h3 {font-size: 1.17em;}
+  .fake-h2 {font-size: 1.5em;}
+  .fake-h1 {font-size: 2em;}
+}
+
+/* align center */
+.align-center {
+  clear: both;
+  text-align: center;
+}
+
+.default-image-align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+img.align-center {
+  @extend .default-image-align-center;
+}
+
+/* for images in index.html of / */
+.index-page-image {
+  img {
+    @extend .default-image-align-center;
+  }
+  p {
+    text-align: center;
+  }
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+// for notes of texts
+.ttnote {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.invisible {
+    display: none;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: yellow;
+    border: 1px gray solid;
+    border-radius: 3px;
+    padding: 3px;
+}

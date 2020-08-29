@@ -1,0 +1,5 @@
+{% macro Buddhist_calendar(datetime) -%}
+{{ datetime | strftime('%B %d') }},
+<a href="https://zh.wikipedia.org/zh-tw/%E4%BD%9B%E6%9B%86">佛曆</a>{{ datetime.year + 543 }}
+({{datetime.year}})
+{%- endmacro %}

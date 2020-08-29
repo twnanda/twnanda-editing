@@ -1,0 +1,86 @@
+{% extends "layout/layout.html" %}
+{% set content = (page if page else article )%}
+
+{% block meta_keywords -%}
+  {%- if content.tags -%}
+    {%- for tag in content.tags -%}
+      {{- tag -}}
+      {%- if not loop.last -%}, {%- endif -%}
+    {%- endfor -%}
+  {%- else -%}
+    {{- META_KEYWORDS -}}
+  {%- endif -%}
+{%- endblock %}
+
+{% block meta_description -%}
+  {%- if content.summary -%}
+    {{- content.summary|striptags -}}
+  {%- else -%}
+    {{- META_DESCRIPTION -}}
+  {%- endif -%}
+{%- endblock %}
+
+{% block meta_author -%}
+  {%- if content.author -%}
+    {{- content.author -}}
+  {%- else -%}
+    {{- AUTHOR -}}
+  {%- endif -%}
+{%- endblock %}
+
+{%- if content.og_image -%}{% set OG_IMAGE = content.og_image %}{%- endif -%}
+{%- if content.summary -%}{% set OG_DESCRIPTION = (content.summary|striptags) %}{%- endif -%}
+
+{% block content %}
+<main role="main" class="{{ content_css_class }}">
+  {%- if 'content/articles/tipitaka/' in content.source_path or 'content/articles/anya/' in content.source_path -%}
+    <div class="align-center">
+      <p><strong>namo tassa bhagavato arahato sammāsambuddhassa</strong></p>
+      <p><strong>皈敬世尊、阿羅漢、正等正覺者</strong></p>
+    </div>
+    <hr>
+  {%- endif -%}
+  <article>
+  {%- if content.title -%}
+    <header>
+      <h1>
+        <a href="{{ SITEURL }}/{{ content.url }}"
+           rel="bookmark"
+           title="Permalink to {{ content.title|striptags }}">
+          {{ content.title }}
+        </a>
+      </h1>
+    </header>
+  {%- endif -%}
+    {% block article_time %}{% endblock %}
+    <aside>
+      {{- translations_for(content, SITEURL) -}}
+      {%- if content.github_url -%}
+        <div class="edit-on-github"><a href="{{ content.github_url }}">GitHub</a></div>
+      {%- endif -%}
+      {%- if content.oldurl -%}
+        <div class="old-url"><a href="{{ content.oldurl }}">Old</a></div>
+      {%- endif -%}
+      <div class="zh-convert"><span id="zh-convert" data-zh="tw">简体</span></div>
+      <div class="font-adjust">
+        <span id="font-larger">字+</span>
+        <span id="font-smaller">字-</span>
+      </div>
+    </aside>
+    <hr>
+    {% if GOOGLE_CSE %}<gcse:search></gcse:search>{% endif %}
+    <div class="main-content">{{ content.content }}</div>
+    <footer>{% block article_metadata %}{% endblock %}</footer>
+  {%- if 'content/articles/tipitaka/' in content.source_path or 'content/articles/anya/' in content.source_path -%}
+    <hr>
+    <div>
+      <p>巴利文經典最突出的特點，同時也是缺乏同情心的讀者最感厭倦的特點，就是單字、語句和整段文節的重複。這一部分是文法或至少是文體所產生的結果。 …，…，…，</p>
+      <p>…，…，…， 這種文句冗長的特性，另外還有一個原因，那就是在長時期中三藏經典只以口授相傳。 …，…，…，</p>
+      <p>…，…，…， 巴利文經典令人生厭的機械性的重覆敘述，也可能一部分是由於僧伽羅人(Sinhalese)不願遺失外國傳教師傳授給他們的聖語 …，…，…，</p>
+      <p>…，…，…， 重覆敘述不僅是說教記錄的特點，而且也是說教本身的特點。我們持有的版本，無疑地是把一段自由說教壓縮成為編有號碼的段落和重覆敘述的產品。佛陀所說的話一定比這些生硬的表格更為活潑柔軟得多。</p>
+      <p>（節錄自： <a href="http://nanda.online-dhamma.net/extra/authors/charles-eliot/Pali_Buddhism-Charles_Eliot-han-chap06-selected.html">巴利系佛教史綱　第六章　聖典　二　摘錄 ）</a></p>
+    </div>
+  {%- endif -%}
+  </article>
+</main>
+{% endblock %}

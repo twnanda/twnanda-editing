@@ -1,0 +1,22 @@
+{% extends "layout/layout.html" %}
+{% block title %}{{ gettext('Archives', DEFAULT_LANG) }} - {{ super() }}{% endblock %}
+{% block content %}
+<section class="archives">
+  <header>
+    <h1>{{ gettext('Archives', DEFAULT_LANG) }} - {{ SITENAME }}</h1>
+  </header>
+
+  <dl>
+    {% for article in dates %}
+      <dt>
+        {% if article.modified -%}
+        更新：{{ Buddhist_calendar(article.modified) }}
+        {%- else -%}
+        {{ Buddhist_calendar(article.date) }}
+        {%- endif -%}
+      </dt>
+      <dd><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
+    {% endfor %}
+  </dl>
+</section>
+{% endblock %}

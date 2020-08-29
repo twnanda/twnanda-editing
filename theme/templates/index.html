@@ -1,0 +1,14 @@
+{% set article = (hidden_pages|hidden_pages_get_page_with_slug_index) %}
+{% extends "layout/content.html" %}
+{% set content_css_class = "article" %}
+
+{%- block article_time -%}
+<aside>
+  <time datetime="{{ article.modified.isoformat() }}">
+    更新：{{ Buddhist_calendar(article.modified) }}
+  </time>
+</aside>
+{%- endblock -%}
+{%- block nanda_email -%}
+三寶弟子--(優婆塞)圓信(Nanda--Pāli Name)歡迎<a href="mailto:{{ NANDA_EMAIL }}">來函</a>指教！
+{%- endblock -%}
